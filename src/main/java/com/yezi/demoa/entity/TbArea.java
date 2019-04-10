@@ -22,7 +22,8 @@ public class TbArea {
     // 主键ID 类型用基础类型的包装类型，方便做非空的校验
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO )
-    private Integer area_id;
+    @Column(name = "area_id")
+    private Integer areaId;
 
     // 名称
     @Column(name = "area_name")
@@ -37,5 +38,5 @@ public class TbArea {
 
     // 最近一次修改时间
     @Column(name = "last_edit_time")
-    private Date lastEdiTime;
+    private Date lastEditTime;
 }
