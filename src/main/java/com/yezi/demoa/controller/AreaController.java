@@ -51,7 +51,7 @@ public class AreaController {
         return modelMap;
     }
 
-    @GetMapping(value = "deleteareabyid")
+    @GetMapping(value = "/deleteareabyid")
     private Map<String, Object> deleteArea(Integer areaId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         modelMap.put("success", areaService.deleteArea(areaId));

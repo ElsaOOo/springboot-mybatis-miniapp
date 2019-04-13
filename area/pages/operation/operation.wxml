@@ -1,0 +1,17 @@
+<view  class='container'>
+  <form class='form'>
+    <view class='row'>
+      <label>区域名: </label>
+      <input placeholder='请输入区域名'></input>
+    </view>
+    <view class='row'>
+      <label>优先级: </label>
+      <input placeholder='数值越大越靠前'></input>
+    </view>
+  </form>
+
+  <view class='footer'>
+    <button>提交</button>
+    <button>清空</button>
+  </view>
+</view>
