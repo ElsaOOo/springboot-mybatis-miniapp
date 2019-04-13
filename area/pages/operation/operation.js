@@ -4,21 +4,68 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    form: {
+      areaId: '',
+      areaName: '',
+      priority: '',
+    }
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function (options) {
-    
+  bindKeyInput(e) {
+    const { detail, target } = e;
+    Object.assign(this.data.form, {
+      [target.dataset.key]: detail.value
+    })
   },
 
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-    
+  submit() {
+    wx.request({
+      url: 'http://localhost:8082/demoa/superadmin/insertarea',
+      method: 'post',
+      data: this.form,
+      success: (res) => {
+        console.log(res)
+      }
+    })
+  },
+
+  getData() {
+    const { form } = this.data;
+    wx.request({
+      url: 'http://localhost:8082/demoa/superadmin/getareabyid',
+      method: 'get',
+      data: {
+        areaId: Number(form.areaId)
+      },
+      success: (res) => {
+        console.log(res)
+        if (res.data.success) {
+          const { areaId, areaName ,priority } = res.data.area;
+          this.setData({
+            form: {
+              areaId,
+              areaName,
+              priority
+            }
+          })
+        }
+      }
+    })
+  },
+
+  reset() {
+    this.setData({
+      form: {}
+    })
+  },
+
+  onLoad(option) {
+    if (option.areaId) {
+      Object.assign(this.data.form, {
+        areaId: option.areaId
+      })
+      this.getData();
+    }
   },
 
   /**
@@ -41,25 +88,4 @@ Page({
   onUnload: function () {
     
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function () {
-    
-  },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-    
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-    
-  }
 })

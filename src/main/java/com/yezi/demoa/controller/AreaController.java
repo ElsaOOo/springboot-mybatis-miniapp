@@ -30,10 +30,11 @@ public class AreaController {
     }
 
     @RequestMapping(value = "/getareabyid", method = { RequestMethod.GET, RequestMethod.POST })
-    private Map<String, Object> getAreaById(Integer areaId) {
+    private Map<String, Object> getAreaById( Integer areaId) {
         Map<String, Object> modelMap = new HashMap<String, Object>();
         TbArea area = areaService.queryAreaById(areaId);
         modelMap.put("area", area);
+        modelMap.put("success", true);
         return modelMap;
     }
 

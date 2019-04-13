@@ -1,0 +1,23 @@
+.container {
+  padding-top: 50rpx;
+}
+.form {
+  margin-bottom: 50rpx;
+}
+.row {
+  margin-bottom: 30rpx;
+}
+.row input {
+  border: 1px solid #DDD;
+  border-radius: 10rpx;
+  margin-left: 20rpx;
+}
+.fl {
+  display: flex;
+  align-items: center;
+}
+.footer button {
+  margin-right: 30rpx;
+  width: 170rpx;
+  line-height: 2;
+}
