@@ -16,4 +16,5 @@ public interface AreaService {
     boolean insertArea(TbArea area);
     boolean updateArea(TbArea area);
     boolean deleteArea(int areaId);
+    boolean addOrUpdateArea(TbArea area);
 }

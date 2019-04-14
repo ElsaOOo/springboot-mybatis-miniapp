@@ -31,47 +31,53 @@ public class AreaServiceImpl implements AreaService {
         return areaDao.queryAreaById(areaId);
     }
 
+    @Transactional
+    @Override
+    public boolean addOrUpdateArea(TbArea area) {
+        // 编辑
+        if (area.getAreaId() != null && area.getAreaId() > 0) {
+            return updateArea(area);
+        } else if (area.getAreaName() != null && !"".equals(area.getAreaName())){
+            return insertArea(area);
+        } else {
+            throw new RuntimeException("修改区域信息失败!");
+        }
+    }
+
     // Transactional事务回滚默认是RUNtime异常的时候回滚
     @Transactional
     @Override
     public boolean insertArea(TbArea area) {
-        if (area.getAreaName() != null && !"".equals(area.getAreaName())) {
-            area.setCreateTime(new Date());
-            area.setLastEditTime(new Date());
-            try {
-                int effectedNum = areaDao.insertArea(area);
-                if (effectedNum > 0) {
-                    return true;
-                } else {
-                    throw new RuntimeException("插入区域信息失败!");
-                }
-            } catch (Exception e) {
-                throw new RuntimeException("插入区域信息失败:" + e.getMessage());
+        area.setCreateTime(new Date());
+        area.setLastEditTime(new Date());
+        try {
+            int effectedNum = areaDao.insertArea(area);
+            if (effectedNum > 0) {
+                return true;
+            } else {
+                throw new RuntimeException("插入区域信息失败!");
             }
-        } else {
-            throw new RuntimeException("区域信息不能为空");
+        } catch (Exception e) {
+            throw new RuntimeException("插入区域信息失败:" + e.getMessage());
         }
     }
 
     @Override
     public boolean updateArea(TbArea area) {
         // 空值判断，主要是AreaId不为空
-        if (area.getAreaId() != null && area.getAreaId() > 0) {
-            // 设置默认值
-            area.setLastEditTime(new Date());
-            try {
-                // 更新区域信息
-                int effectedNum = areaDao.updateArea(area);
-                if (effectedNum > 0) {
-                    return true;
-                } else {
-                    throw new RuntimeException("更新区域信息失败!");
-                }
-            } catch (Exception e) {
-                throw new RuntimeException("更新区域信息失败: " + e.getMessage());
+
+        // 设置默认值
+        area.setLastEditTime(new Date());
+        try {
+            // 更新区域信息
+            int effectedNum = areaDao.updateArea(area);
+            if (effectedNum > 0) {
+                return true;
+            } else {
+                throw new RuntimeException("更新区域信息失败!");
             }
-        } else {
-            throw new RuntimeException("区域信息不能为空!");
+        } catch (Exception e) {
+            throw new RuntimeException("更新区域信息失败: " + e.getMessage());
         }
     }
 

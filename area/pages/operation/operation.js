@@ -18,13 +18,49 @@ Page({
     })
   },
 
+  validateForm() {
+    const { areaName, priority } = this.data.form;
+    let toastText = ''
+    if (areaName === '') {
+      toastText = '区域名不能为空';
+      wx.showToast({
+        title: toastText,
+        icon: '',
+        duration: 2000
+      })
+      return true;
+    } else if (priority === '') {
+      toastText = '优先级不能为空';
+      wx.showToast({
+        title: toastText,
+        icon: '',
+        duration: 2000
+      })
+      return true;
+    }
+    return false;
+  },
+
   submit() {
+    if (this.validateForm()) {
+      return false;
+    }
+
     wx.request({
-      url: 'http://localhost:8082/demoa/superadmin/insertarea',
+      url: 'http://localhost:8082/demoa/superadmin/addOrUpdateArea',
       method: 'post',
-      data: this.form,
+      data: this.data.form,
       success: (res) => {
         console.log(res)
+        let toastText = res.success ? '编辑信息成功' : '编辑信息失败'
+        wx.showToast({
+          title: toastText,
+          icon: '',
+          duration: 2000
+        });
+        wx.navigateTo({
+          url: '../list/list'
+        })
       }
     })
   },
@@ -55,7 +91,11 @@ Page({
 
   reset() {
     this.setData({
-      form: {}
+      form: {
+        areaId: '',
+        areaName: '',
+        priority: '',
+      }
     })
   },
 

@@ -38,6 +38,13 @@ public class AreaController {
         return modelMap;
     }
 
+    @PostMapping(value = "/addOrUpdateArea")
+    private Map<String, Object> addOrUpdateArea(@RequestBody TbArea area) {
+        Map<String, Object> modelMap = new HashMap<String, Object>();
+        modelMap.put("success", areaService.addOrUpdateArea(area));
+        return modelMap;
+    }
+
     @PostMapping(value = "/insertarea")
     private Map<String, Object> insertArea(@RequestBody TbArea area) {
         Map<String, Object> modelMap = new HashMap<String, Object>();

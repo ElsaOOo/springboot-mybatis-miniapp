@@ -21,8 +21,8 @@
     <update id="updateArea" parameterType="com.yezi.demoa.entity.TbArea">
         update tb_area
         <set>
-            <if test="areaName!=null">area_name=#{areaName}</if>
-            <if test="priority!=null">priority=#{priority}</if>
+            <if test="areaName!=null">area_name=#{areaName},</if>
+            <if test="priority!=null">priority=#{priority},</if>
             <if test="lastEditTime!=null">last_edit_time=#{lastEditTime}</if>
         </set>
         where area_id=#{areaId}
